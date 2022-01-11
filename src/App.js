@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
@@ -10,9 +11,13 @@ import HomePage from './pages/HomePage';
 import ListItemsPage from './pages/ListItemsPage';
 import ItemPage from './pages/ItemPage';
 
+import { ToastContainer } from 'react-toastify';
+import ProtectedRoute from './components/ProtectedRoute';
+
 function App() {
     return (
         <div className="App">
+            <ToastContainer />
             <AuthProvider>
                 <Header />
 
@@ -21,8 +26,11 @@ function App() {
                         <Route path="/" element={<HomePage />} />
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<RegisterPage />} />
-                        <Route path="/items" element={<ListItemsPage />} />
-                        <Route path="/items/:id" element={<ItemPage />} />
+                        <Route element={<ProtectedRoute />}>
+                            <Route path="/items" element={<ListItemsPage />} />
+                            <Route path="/items/:id" element={<ItemPage />} />
+                        </Route>
+                        <Route path="*" element={<h1>Page not found 404</h1>} />
                     </Routes>
                 </Container>
             </AuthProvider>
