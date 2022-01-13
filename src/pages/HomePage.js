@@ -7,7 +7,7 @@ const HomePage = () => {
             <h1 className="text-center">Blogger.</h1>
             <Row className="justify-content-center my-4">
                 <Image
-                    src="logo-blog.png"
+                    src="/logo-blog.png"
                     style={{
                         width: '200px',
                         height: '200px',

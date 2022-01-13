@@ -1,16 +1,30 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import axios from 'axios';
+import { AuthContext } from '../components/AuthProvider';
 
 const LoginPage = () => {
     const [validated, setValidated] = useState(false);
+    const { dispatch } = useContext(AuthContext);
+    const [user, setUser] = useState({
+        email: '',
+        password: '',
+    });
     const navigate = useNavigate();
     const emailRef = useRef();
     const passwordRef = useRef();
 
-    const handleSubmit = (event) => {
+    const handleChange = ({ target: { value, name } }) => {
+        setUser({
+            ...user,
+            [name]: value,
+        });
+    };
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         setValidated(true);
 
@@ -23,10 +37,25 @@ const LoginPage = () => {
         }
 
         try {
+            const { data } = await axios.post(
+                'http://localhost:3000/auth/login',
+                user
+            );
+
+            const token = data?.token;
+
+            if (token) {
+                localStorage.setItem('accessToken', JSON.stringify(token));
+            }
+
+            dispatch({ type: 'SET_AUTH', payload: true });
+
             navigate('/items');
         } catch (error) {
-            console.log(error);
-            toast.error(' Error!', {
+            const errorMessage = error.response.data.message
+                ? error.response.data.message
+                : error.message;
+            toast.error(errorMessage, {
                 position: 'bottom-center',
                 autoClose: 2000,
                 hideProgressBar: true,
@@ -48,6 +77,9 @@ const LoginPage = () => {
                         required
                         type="email"
                         placeholder="Email"
+                        onChange={handleChange}
+                        value={user.email}
+                        name="email"
                     />
                     <Form.Control.Feedback type="invalid">
                         Please enter a valid email adress.
@@ -61,6 +93,9 @@ const LoginPage = () => {
                         required
                         type="password"
                         placeholder="Password"
+                        onChange={handleChange}
+                        value={user.password}
+                        name="password"
                     />
                     <Form.Control.Feedback type="invalid">
                         Please enter your password.

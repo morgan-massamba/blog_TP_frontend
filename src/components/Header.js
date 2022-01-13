@@ -16,6 +16,9 @@ const Header = () => {
 
     const handleLogout = () => {
         dispatch({ type: 'SET_AUTH', payload: false });
+
+        localStorage.removeItem('accessToken');
+
         navigate('/');
     };
 
@@ -41,6 +44,9 @@ const Header = () => {
                             <>
                                 <Nav.Link as={Link} to="/items">
                                     Articles
+                                </Nav.Link>
+                                <Nav.Link as={Link} to="/items/create">
+                                    Créer un article
                                 </Nav.Link>
                                 <NavDropdown
                                     title="Categories"

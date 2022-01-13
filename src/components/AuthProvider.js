@@ -12,7 +12,10 @@ const AuthReducer = (state, action) => {
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(AuthReducer, { isAuth: false });
+    const isAuthenticated = localStorage.getItem('accessToken') ? true : false;
+    const [state, dispatch] = useReducer(AuthReducer, {
+        isAuth: isAuthenticated,
+    });
 
     return (
         <AuthContext.Provider value={{ state, dispatch }}>

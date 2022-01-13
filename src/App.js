@@ -13,6 +13,7 @@ import ItemPage from './pages/ItemPage';
 
 import { ToastContainer } from 'react-toastify';
 import ProtectedRoute from './components/ProtectedRoute';
+import AddItem from './components/AddItem';
 
 function App() {
     return (
@@ -21,13 +22,14 @@ function App() {
             <AuthProvider>
                 <Header />
 
-                <Container className="pt-4">
+                <Container className="py-4">
                     <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<RegisterPage />} />
                         <Route element={<ProtectedRoute />}>
                             <Route path="/items" element={<ListItemsPage />} />
+                            <Route path="/items/create" element={<AddItem />} />
                             <Route path="/items/:id" element={<ItemPage />} />
                         </Route>
                         <Route path="*" element={<h1>Page not found 404</h1>} />

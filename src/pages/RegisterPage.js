@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const RegisterPage = () => {
     const [validated, setValidated] = useState(false);
@@ -32,7 +33,7 @@ const RegisterPage = () => {
         setConfirmPassword(value);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         setValidated(true);
@@ -49,11 +50,14 @@ const RegisterPage = () => {
         }
 
         try {
+            await axios.post('http://localhost:3000/auth/register', user);
             navigate('/login');
         } catch (error) {
-            console.log(error);
-            toast.error(' Error!', {
-                position: 'bottom-center',
+            const errorMessage = error.response.data.message
+                ? error.response.data.message
+                : error.message;
+            toast.error(errorMessage, {
+                position: 'top-right',
                 autoClose: 2000,
                 hideProgressBar: true,
                 closeOnClick: true,
