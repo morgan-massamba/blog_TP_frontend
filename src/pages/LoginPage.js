@@ -56,7 +56,6 @@ const LoginPage = () => {
                 ? error.response.data.message
                 : error.message;
             toast.error(errorMessage, {
-                position: 'bottom-center',
                 autoClose: 2000,
                 hideProgressBar: true,
                 closeOnClick: true,

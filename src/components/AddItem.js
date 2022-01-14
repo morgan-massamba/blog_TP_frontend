@@ -82,7 +82,6 @@ const AddItem = () => {
                 : error.message;
             console.log(error.response);
             toast.error(errorMessage, {
-                position: 'bottom-center',
                 autoClose: 2000,
                 hideProgressBar: true,
                 closeOnClick: true,
