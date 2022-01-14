@@ -50,6 +50,11 @@ const LoginPage = () => {
 
             dispatch({ type: 'SET_AUTH', payload: true });
 
+            toast.success('Connexion réussie', {
+                hideProgressBar: true,
+                autoClose: 1500,
+            });
+
             navigate('/items');
         } catch (error) {
             const errorMessage = error.response.data.message

@@ -1,5 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 
+export const AuthContext = createContext();
+
 const AuthReducer = (state, action) => {
     switch (action.type) {
         case 'SET_AUTH':
@@ -8,8 +10,6 @@ const AuthReducer = (state, action) => {
             throw new Error();
     }
 };
-
-export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const isAuthenticated = localStorage.getItem('accessToken') ? true : false;

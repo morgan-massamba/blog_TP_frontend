@@ -51,6 +51,12 @@ const RegisterPage = () => {
 
         try {
             await axios.post('http://localhost:3000/auth/register', user);
+
+            toast.success('Inscription réussie', {
+                hideProgressBar: true,
+                autoClose: 1500,
+            });
+
             navigate('/login');
         } catch (error) {
             const errorMessage = error.response.data.message
