@@ -36,7 +36,7 @@ const Categorie = () => {
             setLoading(true);
 
             const { data } = await axios.get(
-                'http://localhost:3000/api/items?page=' + index
+                `http://localhost:3000/api/items?categorie=${categorie}&page=${index}`
             );
 
             setItems(data.data);
