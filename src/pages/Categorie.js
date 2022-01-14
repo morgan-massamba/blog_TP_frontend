@@ -4,18 +4,21 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 import PaginationComponent from '../components/Pagination';
+import { useParams } from 'react-router-dom';
 
-const ListItemsPage = () => {
+const Categorie = () => {
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
 
+    const { categorie } = useParams();
+
     useEffect(() => {
-        async function loadItems() {
+        async function loadItems(categorie) {
             try {
                 const { data } = await axios.get(
-                    'http://localhost:3000/api/items'
+                    'http://localhost:3000/api/items?categorie=' + categorie
                 );
                 setItems(data.data);
                 setTotalPages(data.totalPages);
@@ -25,8 +28,8 @@ const ListItemsPage = () => {
             }
             setLoading(false);
         }
-        loadItems();
-    }, []);
+        loadItems(categorie);
+    }, [categorie]);
 
     const handlePagination = async (index) => {
         try {
@@ -47,7 +50,7 @@ const ListItemsPage = () => {
 
     return (
         <div>
-            <h2>Derniers articles</h2>
+            <h2>Articles concernant la thématique {categorie.toUpperCase()}</h2>
             <Row xs={1} md={2} lg={3} xl={4}>
                 {items.map(
                     ({
@@ -84,4 +87,4 @@ const ListItemsPage = () => {
     );
 };
 
-export default ListItemsPage;
+export default Categorie;

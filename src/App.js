@@ -14,6 +14,7 @@ import ItemPage from './pages/ItemPage';
 import { ToastContainer } from 'react-toastify';
 import ProtectedRoute from './components/ProtectedRoute';
 import AddItem from './components/AddItem';
+import Categorie from './pages/Categorie';
 
 function App() {
     return (
@@ -31,6 +32,10 @@ function App() {
                             <Route path="/items" element={<ListItemsPage />} />
                             <Route path="/items/create" element={<AddItem />} />
                             <Route path="/items/:id" element={<ItemPage />} />
+                            <Route
+                                path="/items/categorie/:categorie"
+                                element={<Categorie />}
+                            />
                         </Route>
                         <Route path="*" element={<h1>Page not found 404</h1>} />
                     </Routes>

@@ -52,16 +52,28 @@ const Header = () => {
                                     title="Categories"
                                     id="basic-nav-dropdown"
                                 >
-                                    <NavDropdown.Item href="#action/3.1">
+                                    <NavDropdown.Item
+                                        as={Link}
+                                        to="/items/categorie/php"
+                                    >
                                         PHP
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item href="#action/3.2">
+                                    <NavDropdown.Item
+                                        as={Link}
+                                        to="/items/categorie/js"
+                                    >
                                         JS
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item href="#action/3.3">
+                                    <NavDropdown.Item
+                                        as={Link}
+                                        to="/items/categorie/python"
+                                    >
                                         Python
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item href="#action/3.4">
+                                    <NavDropdown.Item
+                                        as={Link}
+                                        to="/items/categorie/mongodb"
+                                    >
                                         MongoDB
                                     </NavDropdown.Item>
                                 </NavDropdown>
